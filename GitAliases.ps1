@@ -19,10 +19,19 @@ function Get-GitWorktreeAdd
     [string]$Path,
     [string]$Branch
   )
-  git branch $Branch
   git worktree add $Path $Branch
 }
 New-Alias -Name gwt -Value Get-GitWorktreeAdd -Force -Option AllScope
+
+function Get-GitWorktreeCreateBranch
+{
+  param (
+    [string]$Branch,
+    [string]$Path
+  )
+  git worktree add -b $Branch $Path
+}
+New-Alias -Name gwtb -Value Get-GitWorktreeCreateBranch -Force -Option AllScope
 
 function Get-GitWorktreeList
 { & git worktree list 
