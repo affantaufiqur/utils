@@ -30,6 +30,24 @@ function Get-GitWorktreeCreateBranch
     [string]$Path
   )
   git worktree add -b $Branch $Path
+  $untrackedFiles = git ls-files --others --directory
+  
+  foreach ($file in $untrackedFiles)
+  {
+    $sourcePath = Resolve-Path $file
+    $destinationPath = Join-Path $Path $file
+
+    if (Test-Path $sourcePath -PathType Container)
+    {
+      if (!(Test-Path $destinationPath -PathType Container))
+      {
+        New-Item -ItemType Directory -Path $destinationPath
+      }
+    } else
+    {
+      Copy-Item $sourcePath $destinationPath -Force
+    }
+  }
 }
 New-Alias -Name gwtb -Value Get-GitWorktreeCreateBranch -Force -Option AllScope
 
