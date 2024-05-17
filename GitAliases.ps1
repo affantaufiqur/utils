@@ -59,9 +59,11 @@ New-Alias -Name gwl -Value Get-GitWorktreeList -Force -Option AllScope
 function Get-GitWorktreeRemove
 {
   param (
-    [string]$Path  
+    [string]$Path,
+    [string]$Branch
   )
   git worktree remove $Path
+  git branch -D $Branch
 }
 New-Alias -Name gwr -Value Get-GitWorktreeRemove -Force -Option AllScope
 
