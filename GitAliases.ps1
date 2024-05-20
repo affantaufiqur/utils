@@ -82,11 +82,6 @@ function Get-GitPushWithBranch
 }
 New-Alias -Name gpb -Value Get-GitPushWithBranch -Force -Option AllScope
 
-function Get-GitPush
-{ & git push 
-}
-New-Alias -Name gp -Value Get-GitPush -Force -Option AllScope
-
 function Get-GitBranchList
 { & git branch -a -l 
 }
