@@ -26,7 +26,6 @@ New-Alias -Name gwt -Value Get-GitWorktreeAdd -Force -Option AllScope
 function Get-GitWorktreeCreateBranch
 {
   param (
-    [string]$Branch,
     [string]$Path
   )
   $branchName = $Path.split('/')[-1]
@@ -68,6 +67,11 @@ function Get-GitWorktreeRemove
   git branch -D $branchName
 }
 New-Alias -Name gwr -Value Get-GitWorktreeRemove -Force -Option AllScope
+Register-ArgumentCompleter -CommandName Get-GitWorktreeRemove -ParameterName Path -ScriptBlock {
+  param ($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameter)
+  $worktrees = git worktree list --porcelain | Where-Object { $_ -like "worktree*$wordToComplete*" } | ForEach-Object { $_.Split()[1] }
+  $worktrees
+}
 
 function Get-GitFetchAll
 { & git fetch -a 
