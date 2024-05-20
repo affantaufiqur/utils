@@ -29,7 +29,8 @@ function Get-GitWorktreeCreateBranch
     [string]$Branch,
     [string]$Path
   )
-  git worktree add -b $Branch $Path
+  $branchName = $Path.split('/')[-1]
+  git worktree add -b $branchName $Path
   $untrackedFiles = git ls-files --others --directory
   
   foreach ($file in $untrackedFiles)
@@ -48,6 +49,7 @@ function Get-GitWorktreeCreateBranch
       Copy-Item $sourcePath $destinationPath -Force
     }
   }
+  Set-Location $Path
 }
 New-Alias -Name gwtb -Value Get-GitWorktreeCreateBranch -Force -Option AllScope
 
