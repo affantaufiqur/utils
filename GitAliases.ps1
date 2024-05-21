@@ -86,7 +86,7 @@ function Get-GitPushWithBranch
   )
   git push -u $Origin $Branch
 }
-New-Alias -Name gpb -Value Get-GitPushWithBranch -Force -Option AllScope
+New-Alias -Name gpush -Value Get-GitPushWithBranch -Force -Option AllScope
 
 function Get-GitBranchList
 { & git branch -a -l 
@@ -101,7 +101,7 @@ function Get-GitPull
 
   git pull origin $Branch
 }
-New-Alias -Name gp -Value Get-GitPull -Force -Option AllScope
+New-Alias -Name gpull -Value Get-GitPull -Force -Option AllScope
 
 function Get-GitAddCommit
 {
